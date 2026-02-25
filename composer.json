@@ -1,0 +1,13 @@
+{
+    "name": "mubashir-hassan/domain-whois-checker",
+    "description": "WordPress Domain WHOIS Checker Plugin with Avada Integration",
+    "type": "wordpress-plugin",
+    "require-dev": {
+        "php-stubs/wordpress-stubs": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DomainWhoisChecker\\": "includes/"
+        }
+    }
+}

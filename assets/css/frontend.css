@@ -1,0 +1,1383 @@
+/**
+ * Frontend Styles for Domain WHOIS Checker
+ * Enhanced UI/UX with modern animations and microinteractions
+ * Version 2.0 - Modern glassmorphism design with improved accessibility
+ */
+
+/* Enhanced CSS Variables for Consistent Theming */
+:root {
+    --dwc-primary-color: #007cba;
+    --dwc-primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --dwc-secondary-color: #005a87;
+    --dwc-success-color: #46b450;
+    --dwc-success-gradient: linear-gradient(135deg, #667eea 0%, #48bb78 100%);
+    --dwc-error-color: #dc3232;
+    --dwc-error-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --dwc-warning-color: #dba617;
+    --dwc-text-color: #333;
+    --dwc-text-light: #646970;
+    --dwc-border-color: #ddd;
+    --dwc-border-light: rgba(255, 255, 255, 0.18);
+    --dwc-bg-light: #f9f9f9;
+    --dwc-glass-bg: rgba(255, 255, 255, 0.75);
+    --dwc-glass-blur: blur(10px);
+    --dwc-shadow-light: rgba(0, 0, 0, 0.05);
+    --dwc-shadow-medium: rgba(0, 0, 0, 0.1);
+    --dwc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --dwc-shadow-glow: 0 0 20px rgba(102, 126, 234, 0.4);
+    --dwc-transition-fast: 0.2s ease;
+    --dwc-transition-medium: 0.3s ease;
+    --dwc-transition-slow: 0.6s ease;
+    --dwc-transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --dwc-border-radius: 12px;
+    --dwc-border-radius-lg: 16px;
+    --dwc-spacing-xs: 4px;
+    --dwc-spacing-sm: 8px;
+    --dwc-spacing-md: 12px;
+    --dwc-spacing-lg: 20px;
+    --dwc-spacing-xl: 32px;
+}
+
+/* Global Animation Improvements */
+* {
+    box-sizing: border-box;
+}
+
+/* Smooth focus transitions for accessibility */
+*:focus {
+    outline-offset: 2px;
+    transition: outline-offset var(--dwc-transition-fast);
+}
+
+/* Page enter animation */
+@keyframes dwc-page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Main Container - Enhanced with glassmorphism */
+.dwc-checker-container, .dwc-fusion-container, .dwc-widget {
+    max-width: 100%;
+    margin: var(--dwc-spacing-xl) 0;
+    font-family: inherit;
+    animation: dwc-page-enter 0.5s ease-out;
+    transition: all var(--dwc-transition-medium);
+    background: var(--dwc-glass-bg);
+    backdrop-filter: var(--dwc-glass-blur);
+    -webkit-backdrop-filter: var(--dwc-glass-blur);
+    border: 1px solid var(--dwc-border-light);
+    border-radius: var(--dwc-border-radius-lg);
+    padding: var(--dwc-spacing-xl);
+    box-shadow: var(--dwc-shadow-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glass morphism background pattern */
+.dwc-checker-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+    animation: dwc-rotate 30s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes dwc-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Container hover effect for subtle interaction feedback */
+.dwc-checker-container:hover,
+.dwc-fusion-container:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: var(--dwc-shadow-glow);
+    background: rgba(255, 255, 255, 0.85);
+}
+
+/* Form Container */
+.dwc-form-container {
+    margin-bottom: var(--dwc-spacing-lg);
+    position: relative;
+    animation: dwc-slide-in-up 0.4s ease-out 0.1s both;
+}
+
+@keyframes dwc-slide-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Input Group */
+.dwc-input-group {
+    display: flex;
+    gap: var(--dwc-spacing-md);
+    align-items: stretch;
+    margin-bottom: 15px;
+    position: relative;
+    transition: all var(--dwc-transition-medium);
+}
+
+.dwc-input-group::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dwc-primary-color), transparent);
+    transform: translateY(-50%) scaleX(0);
+    transition: transform var(--dwc-transition-medium);
+    z-index: -1;
+}
+
+.dwc-input-group:focus-within::before {
+    transform: translateY(-50%) scaleX(1);
+}
+
+.dwc-input-group.dwc-compact {
+    margin-bottom: var(--dwc-spacing-md);
+}
+
+/* Domain Input - Enhanced with modern design */
+.dwc-domain-input {
+    flex: 1;
+    padding: 16px 24px;
+    border: 2px solid transparent;
+    border-radius: var(--dwc-border-radius);
+    font-size: 16px;
+    font-weight: 500;
+    transition: all var(--dwc-transition-medium) cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    background: var(--dwc-glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Floating label effect */
+.dwc-domain-input:focus {
+    border-color: var(--dwc-primary-color);
+    box-shadow: 
+        inset 0 1px 2px var(--dwc-shadow-light),
+        0 0 0 3px rgba(0, 124, 186, 0.1),
+        0 2px 8px rgba(0, 124, 186, 0.15);
+    transform: translateY(-1px) scale(1.01);
+}
+
+.dwc-domain-input::placeholder {
+    color: #a7aaad;
+    transition: all var(--dwc-transition-medium);
+    transform-origin: left center;
+}
+
+.dwc-domain-input:focus::placeholder {
+    color: #c3c4c7;
+    transform: translateY(-2px) scale(0.9);
+}
+
+/* Input shimmer effect on focus */
+.dwc-domain-input::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+    pointer-events: none;
+}
+
+.dwc-domain-input:focus::before {
+    left: 100%;
+}
+
+/* Input validation states */
+.dwc-domain-input.valid {
+    border-color: var(--dwc-success-color);
+    box-shadow: 
+        inset 0 1px 2px var(--dwc-shadow-light),
+        0 0 0 3px rgba(70, 180, 80, 0.1);
+    animation: dwc-valid-pulse 0.5s ease-out;
+}
+
+.dwc-domain-input.invalid {
+    border-color: var(--dwc-error-color);
+    box-shadow: 
+        inset 0 1px 2px var(--dwc-shadow-light),
+        0 0 0 3px rgba(220, 50, 50, 0.1);
+    animation: dwc-shake 0.4s ease-out;
+}
+
+@keyframes dwc-valid-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes dwc-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* Real-time validation feedback */
+.dwc-input-feedback {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: var(--dwc-spacing-xs);
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all var(--dwc-transition-fast);
+    pointer-events: none;
+}
+
+.dwc-input-feedback.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dwc-input-feedback.success {
+    color: var(--dwc-success-color);
+}
+
+.dwc-input-feedback.error {
+    color: var(--dwc-error-color);
+}
+
+.dwc-input-feedback::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: var(--dwc-spacing-xs);
+    background-size: contain;
+    vertical-align: text-top;
+}
+
+.dwc-input-feedback.success::before {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjYiIGZpbGw9IiM0NmI0NTAiLz4KPHBhdGggZD0ibTMuNzUgNi4yNSAxLjUgMS41IDMtMyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=');
+}
+
+.dwc-input-feedback.error::before {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjYiIGZpbGw9IiNkYzMyMzIiLz4KPHBhdGggZD0ibTQgNCA0IDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJtOCA0LTQgNCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=');
+}
+
+/* Check Button - Modern gradient design with depth */
+.dwc-check-button {
+    padding: 16px 32px;
+    background: var(--dwc-primary-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--dwc-border-radius);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--dwc-transition-bounce);
+    white-space: nowrap;
+    min-width: 160px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--dwc-shadow-xl);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(10px);
+    background-size: 200% 200%;
+    animation: dwc-gradient-shift 3s ease infinite;
+}
+
+@keyframes dwc-gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Button magnetic hover effect */
+.dwc-check-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+
+.dwc-check-button:hover::before {
+    left: 100%;
+}
+
+.dwc-check-button:hover {
+    transform: translateY(-4px) scale(1.05) rotate(1deg);
+    box-shadow: 
+        0 20px 40px rgba(102, 126, 234, 0.4),
+        0 15px 20px rgba(102, 126, 234, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    filter: brightness(1.1);
+}
+
+.dwc-check-button:active {
+    transform: translateY(-1px) scale(0.98);
+    transition-duration: 0.1s;
+}
+
+.dwc-check-button:focus {
+    outline: none;
+    box-shadow: 
+        0 12px 30px rgba(0, 124, 186, 0.4),
+        0 6px 15px rgba(0, 124, 186, 0.3),
+        0 0 0 3px rgba(0, 124, 186, 0.5);
+}
+
+.dwc-check-button:disabled {
+    background: linear-gradient(135deg, #c3c4c7 0%, #a7aaad 100%);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(195, 196, 199, 0.2);
+    pointer-events: none;
+}
+
+.dwc-check-button:disabled::before {
+    display: none;
+}
+
+/* Enhanced Loading State for Check Button */
+.dwc-check-button.loading {
+    pointer-events: none;
+    background: linear-gradient(135deg, #646970 0%, #50575e 100%);
+    color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.dwc-check-button.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: dwc-spin 1s linear infinite;
+}
+
+/* Progress ring animation for loading state */
+.dwc-check-button.loading::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: dwc-loading-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes dwc-loading-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Enhanced Loading State */
+.dwc-loading {
+    display: flex;
+    align-items: center;
+    gap: var(--dwc-spacing-md);
+    padding: 15px;
+    color: var(--dwc-text-light);
+    font-size: 15px;
+    font-weight: 500;
+    background: rgba(0, 124, 186, 0.05);
+    border-radius: var(--dwc-border-radius);
+    border: 1px solid rgba(0, 124, 186, 0.1);
+    animation: dwc-fade-in 0.3s ease-out;
+    backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Enhanced loading state with progress bar */
+.dwc-loading.animated::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--dwc-primary-color), var(--dwc-secondary-color));
+    animation: dwc-progress-bar 3s ease-in-out infinite;
+}
+
+@keyframes dwc-progress-bar {
+    0% {
+        width: 0%;
+        opacity: 0;
+    }
+    50% {
+        width: 80%;
+        opacity: 1;
+    }
+    100% {
+        width: 100%;
+        opacity: 0;
+    }
+}
+
+/* Loading state background animation */
+.dwc-loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 124, 186, 0.1), transparent);
+    animation: dwc-loading-sweep 2s ease-in-out infinite;
+}
+
+@keyframes dwc-loading-sweep {
+    0% { left: -100%; }
+    50% { left: 0%; }
+    100% { left: 100%; }
+}
+
+@keyframes dwc-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Button completion state */
+.dwc-check-button.completed {
+    animation: dwc-completion-pulse 0.6s ease-out;
+}
+
+@keyframes dwc-completion-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(70, 180, 80, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(70, 180, 80, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(70, 180, 80, 0);
+    }
+}
+
+.dwc-spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid rgba(0, 124, 186, 0.2);
+    border-top: 3px solid var(--dwc-primary-color);
+    border-radius: 50%;
+    animation: dwc-spin 1s linear infinite;
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* Enhanced spinner with pulse effect */
+.dwc-spinner::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 124, 186, 0.1);
+    animation: dwc-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dwc-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+@keyframes dwc-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.dwc-loading-text {
+    background: linear-gradient(45deg, #007cba, #0096dd);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: dwc-gradient-shift 2s ease-in-out infinite;
+}
+
+@keyframes dwc-gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Results Container */
+.dwc-results-container {
+    margin-top: 20px;
+}
+
+.dwc-result {
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+}
+
+.dwc-result.dwc-error {
+    background-color: #ffeaea;
+    border-color: #dc3232;
+    color: #dc3232;
+}
+
+/* Domain Name */
+.dwc-domain-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Status */
+.dwc-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.dwc-status-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dwc-available .dwc-status-icon {
+    background-color: #46b450;
+}
+
+.dwc-available .dwc-status-icon::after {
+    content: "✓";
+    color: white;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.dwc-not-available .dwc-status-icon {
+    background-color: #dc3232;
+}
+
+.dwc-not-available .dwc-status-icon::after {
+    content: "✗";
+    color: white;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.dwc-available {
+    color: #46b450;
+}
+
+.dwc-not-available {
+    color: #dc3232;
+}
+
+/* Details */
+.dwc-details {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.dwc-detail-item {
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.dwc-detail-item strong {
+    color: #333;
+}
+
+/* Enhanced WHOIS Details */
+.dwc-whois-details {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.dwc-whois-details h4 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #007cba;
+    padding-bottom: 8px;
+}
+
+.dwc-details-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.dwc-detail-section {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #007cba;
+}
+
+.dwc-detail-section h5 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #007cba;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dwc-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.dwc-detail-item:last-child {
+    margin-bottom: 0;
+}
+
+.dwc-detail-item strong {
+    color: #333;
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+.dwc-detail-item span {
+    color: #666;
+    word-break: break-word;
+}
+
+/* Nameservers */
+.dwc-nameservers-list {
+    display: grid;
+    gap: 5px;
+}
+
+.dwc-nameserver {
+    padding: 8px 12px;
+    background: #f0f8ff;
+    border: 1px solid #b3d9ff;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+    color: #333;
+}
+
+/* Status List */
+.dwc-status-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dwc-status-item {
+    padding: 4px 8px;
+    background: #e8f5e8;
+    border: 1px solid #c3e6c3;
+    border-radius: 12px;
+    font-size: 12px;
+    color: #2d5a2d;
+    font-weight: 500;
+}
+
+/* Purchase Section - Enhanced with modern glassmorphism */
+.dwc-purchase-section {
+    margin-top: var(--dwc-spacing-xl);
+    padding: var(--dwc-spacing-xl);
+    background: var(--dwc-glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--dwc-glass-bg), var(--dwc-glass-bg)), var(--dwc-success-gradient);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: var(--dwc-border-radius-lg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: dwc-fade-in-up 0.6s ease-out;
+    box-shadow: var(--dwc-shadow-xl);
+}
+
+@keyframes dwc-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dwc-purchase-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(70, 180, 80, 0.1) 0%, transparent 70%);
+    animation: dwc-pulse-bg 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes dwc-pulse-bg {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+.dwc-success-message {
+    font-size: 20px;
+    font-weight: 700;
+    color: #46b450;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(70, 180, 80, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.dwc-pricing-info {
+    margin: 20px 0;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    border: 1px solid rgba(70, 180, 80, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+}
+
+.dwc-pricing-options {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.dwc-price-option {
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+    padding: 8px 16px;
+    background: rgba(34, 113, 177, 0.1);
+    border-radius: 20px;
+    border: 1px solid rgba(34, 113, 177, 0.2);
+    transition: all 0.3s ease;
+}
+
+.dwc-price-option:hover {
+    background: rgba(34, 113, 177, 0.2);
+    transform: translateY(-2px);
+}
+
+.dwc-price-option strong {
+    color: #2271b1;
+    font-weight: 700;
+}
+
+.dwc-purchase-actions {
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.dwc-purchase-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 40px;
+    background: var(--dwc-success-gradient);
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--dwc-border-radius-lg);
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all var(--dwc-transition-bounce);
+    box-shadow: var(--dwc-shadow-xl);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    overflow: hidden;
+    min-width: 240px;
+    backdrop-filter: blur(10px);
+    background-size: 200% 200%;
+    animation: dwc-gradient-pulse 3s ease infinite;
+}
+
+@keyframes dwc-gradient-pulse {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.dwc-purchase-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.dwc-purchase-button:hover::before {
+    left: 100%;
+}
+
+.dwc-purchase-button:hover {
+    background: linear-gradient(135deg, #3d9e46 0%, #357a3d 100%);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 12px 35px rgba(70, 180, 80, 0.5),
+        0 8px 15px rgba(70, 180, 80, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    color: white;
+    text-decoration: none;
+}
+
+.dwc-purchase-button:active {
+    transform: translateY(-1px) scale(0.98);
+    transition-duration: 0.1s;
+}
+
+.dwc-purchase-button:focus {
+    outline: none;
+    box-shadow: 
+        0 12px 35px rgba(70, 180, 80, 0.5),
+        0 8px 15px rgba(70, 180, 80, 0.4),
+        0 0 0 3px rgba(70, 180, 80, 0.3);
+}
+
+/* Purchase Button Icon */
+.dwc-purchase-button::after {
+    content: '🚀';
+    font-size: 16px;
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.dwc-purchase-button:hover::after {
+    transform: scale(1.2) rotate(-15deg);
+}
+
+/* Purchase Button Loading State */
+.dwc-purchase-button.loading {
+    pointer-events: none;
+    background: linear-gradient(135deg, #c3c4c7 0%, #a7aaad 100%);
+    box-shadow: 0 4px 15px rgba(195, 196, 199, 0.3);
+    transform: none;
+}
+
+.dwc-purchase-button.loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: dwc-spin 1s linear infinite;
+    margin: 0;
+}
+
+.dwc-purchase-info {
+    margin-top: 15px;
+    color: #646970;
+    font-size: 13px;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 8px 16px;
+    background: rgba(70, 180, 80, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(70, 180, 80, 0.2);
+}
+
+.dwc-purchase-info::before {
+    content: '🔒';
+    margin-right: 5px;
+}
+
+/* Domain Suggestions */
+.dwc-suggestions-section {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.dwc-suggestions-section h4 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.dwc-suggestions-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.dwc-suggestion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.dwc-suggestion-item:hover {
+    border-color: #007cba;
+    box-shadow: 0 2px 8px rgba(0, 124, 186, 0.1);
+    transform: translateY(-1px);
+}
+
+.dwc-suggestion-domain {
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    flex: 1;
+}
+
+.dwc-suggestion-buy {
+    padding: 6px 16px;
+    background: #007cba;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dwc-suggestion-buy:hover {
+    background: #005a87;
+    transform: scale(1.05);
+}
+
+/* Checked At */
+.dwc-checked-at {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Widget Styles */
+.dwc-widget {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dwc-widget-title {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Style Variations */
+/* Modern Style */
+.dwc-style-modern .dwc-input-group {
+    background: white;
+    border-radius: 50px;
+    padding: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.dwc-style-modern .dwc-domain-input {
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    background: transparent;
+}
+
+.dwc-style-modern .dwc-domain-input:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.dwc-style-modern .dwc-check-button {
+    border-radius: 50px;
+}
+
+/* Minimal Style */
+.dwc-style-minimal .dwc-domain-input {
+    border: none;
+    border-bottom: 2px solid #ddd;
+    border-radius: 0;
+    background: transparent;
+    padding: 12px 0;
+}
+
+.dwc-style-minimal .dwc-domain-input:focus {
+    border-bottom-color: #007cba;
+    box-shadow: none;
+}
+
+.dwc-style-minimal .dwc-check-button {
+    border-radius: 0;
+    background: transparent;
+    color: #007cba;
+    border: 2px solid #007cba;
+}
+
+.dwc-style-minimal .dwc-check-button:hover {
+    background: #007cba;
+    color: white;
+}
+
+/* Rounded Style */
+.dwc-style-rounded .dwc-domain-input,
+.dwc-style-rounded .dwc-check-button {
+    border-radius: 25px;
+}
+
+/* Enhanced Responsive Design */
+
+/* Container Queries for better responsive behavior */
+@container (max-width: 768px) {
+    .dwc-input-group {
+        flex-direction: column;
+        gap: var(--dwc-spacing-md);
+    }
+    
+    .dwc-check-button {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+/* Tablet optimizations */
+@media (max-width: 768px) {
+    :root {
+        --dwc-spacing-lg: 16px;
+        --dwc-spacing-xl: 20px;
+    }
+    
+    .dwc-input-group {
+        flex-direction: column;
+        gap: var(--dwc-spacing-md);
+        position: relative;
+    }
+    
+    .dwc-check-button {
+        margin-top: 0;
+        width: 100%;
+        padding: 16px 28px;
+        font-size: 18px;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .dwc-domain-input {
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: 16px 18px;
+        min-height: 52px;
+    }
+    
+    /* Enhanced touch targets */
+    .dwc-purchase-button,
+    .dwc-suggestion-buy {
+        min-height: 44px;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+    
+    .dwc-suggestions-list {
+        grid-template-columns: 1fr;
+        gap: var(--dwc-spacing-md);
+    }
+    
+    .dwc-pricing-options {
+        flex-direction: column;
+        gap: var(--dwc-spacing-md);
+    }
+    
+    .dwc-details-grid {
+        gap: var(--dwc-spacing-md);
+    }
+    
+    .dwc-detail-item {
+        flex-direction: column;
+        align-items: start;
+        gap: var(--dwc-spacing-xs);
+    }
+    
+    .dwc-detail-item strong {
+        min-width: auto;
+    }
+    
+    /* Improved loading state for mobile */
+    .dwc-loading {
+        padding: var(--dwc-spacing-md);
+        font-size: 14px;
+    }
+    
+    .dwc-spinner {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+    :root {
+        --dwc-spacing-md: 10px;
+        --dwc-spacing-lg: 14px;
+        --dwc-spacing-xl: 18px;
+        --dwc-border-radius: 6px;
+    }
+    
+    .dwc-checker-container,
+    .dwc-fusion-container,
+    .dwc-widget {
+        margin: var(--dwc-spacing-md) 0;
+        padding: 0 var(--dwc-spacing-md);
+    }
+    
+    .dwc-widget {
+        padding: var(--dwc-spacing-lg);
+        margin: var(--dwc-spacing-md);
+        border-radius: var(--dwc-border-radius);
+    }
+    
+    .dwc-domain-name {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+    
+    .dwc-status {
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+    
+    .dwc-status-icon {
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        font-size: 12px;
+    }
+    
+    /* Optimized purchase section for mobile */
+    .dwc-purchase-section {
+        padding: var(--dwc-spacing-lg);
+        margin-top: var(--dwc-spacing-lg);
+        text-align: center;
+    }
+    
+    .dwc-success-message {
+        font-size: 18px;
+        margin-bottom: var(--dwc-spacing-lg);
+        line-height: 1.3;
+    }
+    
+    .dwc-purchase-button {
+        width: 100%;
+        padding: 18px 24px;
+        font-size: 18px;
+        font-weight: 700;
+        min-height: 56px;
+    }
+    
+    /* Mobile-first WHOIS details */
+    .dwc-whois-details {
+        margin-top: var(--dwc-spacing-lg);
+        padding: var(--dwc-spacing-lg);
+    }
+    
+    .dwc-detail-section {
+        padding: var(--dwc-spacing-md);
+        margin-bottom: var(--dwc-spacing-md);
+    }
+    
+    .dwc-nameserver {
+        padding: var(--dwc-spacing-sm) var(--dwc-spacing-md);
+        font-size: 12px;
+        word-break: break-all;
+    }
+    
+    /* Improved input feedback for mobile */
+    .dwc-input-feedback {
+        font-size: 11px;
+        margin-top: var(--dwc-spacing-xs);
+        padding: var(--dwc-spacing-xs) var(--dwc-spacing-sm);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .dwc-success-message {
+        font-size: 16px;
+    }
+    
+    .dwc-purchase-button {
+        font-size: 16px;
+        padding: 16px 20px;
+    }
+    
+    .dwc-domain-input {
+        font-size: 15px;
+        padding: 14px 16px;
+    }
+    
+    .dwc-check-button {
+        font-size: 16px;
+        padding: 14px 20px;
+    }
+}
+
+/* High-DPI displays optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .dwc-status-icon::after {
+        font-size: 12px;
+    }
+    
+    .dwc-spinner {
+        border-width: 2px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dwc-text-color: #e4e6ea;
+        --dwc-text-light: #b0b3b8;
+        --dwc-border-color: #3a3b3c;
+        --dwc-bg-light: #242526;
+    }
+    
+    .dwc-domain-input {
+        background: #18191a;
+        color: var(--dwc-text-color);
+        border-color: var(--dwc-border-color);
+    }
+    
+    .dwc-result {
+        background-color: #242526;
+        border-color: #3a3b3c;
+        color: var(--dwc-text-color);
+    }
+    
+    .dwc-whois-details {
+        background: #18191a;
+        border-color: #3a3b3c;
+    }
+    
+    .dwc-detail-section {
+        background: #242526;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --dwc-transition-fast: 0s;
+        --dwc-transition-medium: 0s;
+        --dwc-transition-slow: 0s;
+    }
+    
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .dwc-spinner {
+        animation: none;
+    }
+    
+    .dwc-check-button::before {
+        animation: none;
+    }
+}
